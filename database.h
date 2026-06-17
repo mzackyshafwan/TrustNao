@@ -1,39 +1,70 @@
+#pragma once
 #include <string.h>
 #include <stdio.h>
 
-void getname(char *FILENAME, char *namevariable){
+//Note: Extract a single name from the second row of the CSV file
+void getname(char *FILENAME, char *namevariable) {
     FILE *file = fopen(FILENAME, "r");
+    if (file == NULL) {
+        return; 
+    }
+    
     char buffer[1024];
-    fgets(buffer, sizeof(buffer), file);
-    fgets(buffer, sizeof(buffer), file);
-    char *name = strtok(buffer, ",");
-    strcpy(namevariable, name);
-    fclose(file);
-}
-
-void addname(char *FILENAME, char name[]){
-
-    FILE *file = fopen(FILENAME, "r");
-    FILE *file2 = fopen("temp.csv", "w");
-    char buffer[1024];
-    int row = 1;
-    while(fgets(buffer, sizeof(buffer), file)){
-        fprintf(file2, buffer);
-        row++;
-        if(row == 2){
-            char name2[20];
-            strcpy(name2, name);
-            fprintf(file2, "%s, 0", name2);
-            break;
+    //Skip header
+    if (fgets(buffer, sizeof(buffer), file) != NULL) {
+        //Read the second row
+        if (fgets(buffer, sizeof(buffer), file) != NULL) {
+            char *name = strtok(buffer, ",");
+            if (name != NULL) { 
+                strcpy(namevariable, name);
+            }
         }
     }
     fclose(file);
-    remove(FILENAME);
-    fclose(file2);
-    rename("temp.csv", FILENAME);
 }
 
-//Note: This function save flattened w in one row and b in another row
+//Note: Load both name and round from the second row directly into variables
+void loadUserData(char *FILENAME, char *namevariable, int *roundvariable) {
+    FILE *file = fopen(FILENAME, "r");
+    if (file == NULL) {
+        return; 
+    }
+    
+    char row[100];
+    
+    //Skip header
+    fgets(row, sizeof(row), file);
+    
+    //Read data and parse
+    if (fgets(row, sizeof(row), file) != NULL) {
+        sscanf(row, "%[^,],%d", namevariable, roundvariable);
+    }
+    
+    fclose(file);
+}
+
+//Note: Overwrite the second row (data row) with updated name and round,
+//      while keeping the header intact
+void saveUserData(char *FILENAME, char *name, int round) {
+    FILE *file = fopen(FILENAME, "w");
+    if (file == NULL) {
+        return;
+    }
+    fprintf(file, "nama,ronde\n");
+    fprintf(file, "%s,%d\n", name, round);
+    fclose(file);
+}
+
+//Note: Append a new player name at the end of the CSV file
+void addName(char *FILENAME, char name[]) {
+    FILE *file = fopen(FILENAME, "a");
+    if (file != NULL) {
+        fprintf(file, "%s,0\n", name);
+        fclose(file);
+    }
+}
+
+//Note: This function saves flattened w in the first row and b in the second row
 void savemodel(const char *filename, float *w, int total_w, float *b, int total_b) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
@@ -41,7 +72,8 @@ void savemodel(const char *filename, float *w, int total_w, float *b, int total_
         return;
     }
 
-    for (int i = 0; i < total_w; i++) { //write w in the first row
+    //Write w
+    for (int i = 0; i < total_w; i++) { 
         fprintf(file, "%f", w[i]);
         if (i < total_w - 1) {
             fprintf(file, ",");
@@ -49,7 +81,8 @@ void savemodel(const char *filename, float *w, int total_w, float *b, int total_
     }
     fprintf(file, "\n");
 
-    for (int i = 0; i < total_b; i++) { //write b in the second row
+    //Write b
+    for (int i = 0; i < total_b; i++) { 
         fprintf(file, "%f", b[i]);
         if (i < total_b - 1) {
             fprintf(file, ",");
@@ -59,17 +92,20 @@ void savemodel(const char *filename, float *w, int total_w, float *b, int total_
     fclose(file);
 }
 
-//Note: This function take w and b according to how my savemodel() works 
-void loadmodel(const char *filename, float *w, int total_w, float *b, int total_b) {
+//Note: This function takes w and b according to how savemodel() works
+void loadModel(const char *filename, float *w, int total_w, float *b, int total_b) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         printf("Error: File %s not found.\n", filename);
         return;
     }
-    for (int i = 0; i < total_w; i++) { //Read w
+    
+    //Read w
+    for (int i = 0; i < total_w; i++) { 
         fscanf(file, "%f,", &w[i]); 
     }
-    for (int i = 0; i < total_b; i++) { //Read b
+    //Read b
+    for (int i = 0; i < total_b; i++) { 
         fscanf(file, "%f,", &b[i]);
     }
     fclose(file);
