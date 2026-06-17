@@ -1,4 +1,5 @@
 //LinkedIn: @zackyshafwan
+#pragma once
 
 //Note: Number of layer means all layer from Input Layer to Output Layer.
 //For Example:  You have two input X1 and X2, These are considered as Input Layer or Layer 0. 
@@ -31,7 +32,7 @@
         printf("You are all set!\n");
     }
 
-    void generatedatabase(int numberoflayer, int *numberofneuroninlayer, float **w, float **b, float **z, float **a, float **dz, float **da){
+    void allocatememory(int numberoflayer, int *numberofneuroninlayer, float **w, float **b, float **z, float **a, float **dz, float **da){
 
         if(numberoflayer <= 1){
             printf("Error\t: Not enough layer. More than 1 layer required\n");
@@ -166,4 +167,3 @@
             }
        }
     }
-
