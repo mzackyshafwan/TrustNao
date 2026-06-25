@@ -104,11 +104,11 @@ void initiatesSaveData(void){
 //Note: Intro dialog shown only to new players — explains the rules before the game starts
 void initialgame(char *username){
     int userchoice;
-    printf("Mastermind\t: Alright, %s\n", username);
+    printf("Game Master\t: Alright, %s\n", username);
     Sleep(1000);
-    printf("Mastermind\t: Let's play a game!\n");
+    printf("Game Master\t: Let's play a game!\n");
     Sleep(1000);
-    printf("Mastermind\t: The rules is simple\n");
+    printf("Game Master\t: The rules is simple\n");
     Sleep(1000);
     printf("==== GAME RULES ====\n");
     printf("1. Pretend that you and me were being caught by police by fraud\n");
@@ -118,13 +118,13 @@ void initialgame(char *username){
     printf("5. However, if both stay silent, they both got 1 year of prison\n");
     printf("6. If they both confessed, both get 7 years at prison\n");
     Sleep(10000);
-    printf("Mastermind\t: Is that clear to you?\n");
+    printf("Game Master\t: Is that clear to you?\n");
     printf("[1] Yes\n");
     printf("[2] Then both of us just need to silent right?\n");
     scanf("%d", &userchoice);
     if(userchoice == 2){
         printf("You\t\t: Then both of us just need to silent right?\n");
-        printf("Mastermind\t: At the first glance, we will thought so. But let's just play the game\n");
+        printf("Game Master\t: At the first glance, we will thought so. But let's just play the game\n");
     }
     else{
         printf("You\t\t: Yes\n");
