@@ -1,7 +1,18 @@
 # TrustNao
-Note: Number of layer means all layer from Input Layer to Output Layer.
-For Example:  You have two input X1 and X2, These are considered as Input Layer or Layer 0. 
-              Then there are processing layer, call it Layer 1, 2, and 3. If layer 3 output is the one to be compared to the actual result of 
-              the sample, either it needs to be converted with activation function (Sigmoid, ReLU), then Layer 3 is an Output Layer
-              So, we have 4 layer in total, Layer 0, 1, 2, 3.
-Note: For ease, assume the input X1 and X2 is part of A in layer 0
+A Game Theory simulator built with C programming language from scratch
+
+About This Project:
+TrustNao is my experimental project to simulate Game Theory's games with Liar Game manga influence. I want to explore how decisions, rationality, trust, and deception can be modeled into a system that able to learn with its user.
+
+Technical Highligh:
+- Custom Neural Network: The Artificial Neural Network in this program was built on C entirely.
+- Flattened Memory Architecture: Instead of using mutiiple array such as w1, w2, w3, and so on, I implement an flattened array, such as w[], so if I want to access specific w, I just need to build a function to get it with indexing.
+- Data Persistence: This program use Save Data system using .csv so it doesn't forget the user progress and the model learning progress.
+
+Getting Started:
+1. Clone the repo
+   git clone [https://github.com/mzackyshafwan/TrustNao]
+2. Compile the code
+   gcc main.c -o trustnao
+3. Run the simulation
+   ./trustnao
