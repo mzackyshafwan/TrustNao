@@ -10,9 +10,9 @@ Technical Highligh:
 - Data Persistence: This program use Save Data system using .csv so it doesn't forget the user progress and the model learning progress.
 
 Getting Started:
-1. Clone the repo
+1. Clone the repo:
    git clone [https://github.com/mzackyshafwan/TrustNao]
-2. Compile the code
+2. Compile the code:
    gcc main.c -o trustnao
-3. Run the simulation
+3. Run the simulation:
    ./trustnao
