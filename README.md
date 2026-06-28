@@ -11,7 +11,7 @@ Technical Highligh:
 
 Getting Started:
 1. Clone the repo:
-   git clone [https://github.com/mzackyshafwan/TrustNao]
+   git clone https://github.com/mzackyshafwan/TrustNao
 2. Compile the code:
    gcc main.c -o trustnao
 3. Run the simulation:
